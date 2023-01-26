@@ -11,6 +11,7 @@ import { useEffect, useState } from 'react'
 function Projects() {
   const [projects, setProjects] = useState([])
   const [removeLoading, setRemoveLoading] = useState(false)
+  const [projectMessage, setProjectMessage] = useState("")
   const delayServer = 3000
   const location = useLocation()
   let message = ""
@@ -35,6 +36,21 @@ function Projects() {
     }, delayServer);
   }, [])
 
+  function removeProject(id) {
+    fetch(`http://localhost:5000/projects/${id}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    }).then(resp => resp.json())
+    .then(data => {
+      setProjects(projects.filter((project) => project.id !== id))
+      setProjectMessage("Projeto removido com sucesso!")
+    })
+    .catch((err) => console.log(err));
+  }
+
+
   return (
     <div className={styles.projectContainer}>
       <div className={styles.titleContainer}>
@@ -43,6 +59,7 @@ function Projects() {
 
       </div>
       {message && <Message type="success" msg={message}/>}
+      {projectMessage && <Message type="success" msg={projectMessage}/>}
       <Container customClass="start">
         {projects.length > 0 &&
          projects.map((project) => 
@@ -50,7 +67,8 @@ function Projects() {
                           id={project.id}
                           budget={project.budget}
                           category={project.category.name}
-                          key={project.id}/>  
+                          key={project.id}
+                          handleRemove={removeProject}/>  
          )}
          {!removeLoading && <Loading/>}
          {removeLoading && projects.length === 0 && 
