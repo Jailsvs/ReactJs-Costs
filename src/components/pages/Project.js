@@ -14,6 +14,7 @@ function Project(){
   const [showProjectForm, setShowProjectForm] = useState(false)
   const [msg, setMsg] = useState()
   const [type, setType] = useState()
+  const [showServiceForm, setShowServiceForm] = useState(false)
 
   const delayServer = 300
 
@@ -34,6 +35,10 @@ function Project(){
 
   function toogleProjectForm () {
     setShowProjectForm(!showProjectForm)
+  }
+
+  function toogleServicetForm(){
+    setShowServiceForm(!showServiceForm)
   }
 
   function editPost(project){
@@ -92,6 +97,22 @@ function Project(){
                 </div>) 
             }
           </div>
+          <div className={styles.serviceFormContainer}>
+            <h2>Adicione um serviço:</h2>
+            <button onClick={toogleServicetForm}
+                    className={styles.btn}>
+              {!showServiceForm ? "Adicionar serviço" : "Fechar"}
+            </button>
+            <div className={styles.projectInfo}>
+              {showServiceForm && (
+                <div>Form do serviço</div>
+              )}
+            </div>
+          </div>
+          <h2>Serviços</h2>
+          <Container customClass="start">
+            <p>Itens de serviços</p>      
+          </Container>
         </Container>
       </div>)
     : (<Loading/>)}
