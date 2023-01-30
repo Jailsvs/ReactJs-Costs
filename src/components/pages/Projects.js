@@ -12,7 +12,7 @@ function Projects() {
   const [projects, setProjects] = useState([])
   const [removeLoading, setRemoveLoading] = useState(false)
   const [projectMessage, setProjectMessage] = useState("")
-  const delayServer = 3000
+  const delayServer = 300
   const location = useLocation()
   let message = ""
   if (location.state) {

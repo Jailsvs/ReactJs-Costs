@@ -1,7 +1,7 @@
 {
   "projects": [
     {
-      "name": "Teste",
+      "name": "Teste Atualizado",
       "budget": "2000",
       "category": {
         "id": "2",
@@ -12,8 +12,8 @@
       "id": 1
     },
     {
-      "name": "Teste 02",
-      "budget": "3000",
+      "name": "Teste 0222",
+      "budget": "80000",
       "category": {
         "id": "3",
         "name": "Design"
