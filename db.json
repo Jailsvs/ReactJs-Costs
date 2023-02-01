@@ -7,13 +7,20 @@
         "id": "2",
         "name": "Desenvolvimento"
       },
-      "cost": 0,
-      "services": [],
+      "cost": 2000,
+      "services": [
+        {
+          "name": "Teste",
+          "cost": "2000",
+          "description": "Teste",
+          "id": "b899deb8-f547-42b0-a374-9f1aeec8b415"
+        }
+      ],
       "id": 1
     },
     {
       "name": "Teste 0222",
-      "budget": "80000",
+      "budget": "8000",
       "category": {
         "id": "3",
         "name": "Design"

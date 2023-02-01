@@ -1,3 +1,5 @@
+import {parse, v4 as uuidv4} from 'uuid'
+
 import styles from './Project.module.css'
 
 import { useParams } from 'react-router-dom';
@@ -6,6 +8,7 @@ import Loading from '../layout/Loading'
 import Container from '../layout/Container';
 import ProjectForm from '../project/ProjectForm'
 import Message from '../layout/Message'
+import ServiceForm from '../service/ServiceForm';
 
 function Project(){
 
@@ -39,6 +42,32 @@ function Project(){
 
   function toogleServicetForm(){
     setShowServiceForm(!showServiceForm)
+  }
+
+  function createService(project){
+    setMsg("")
+    const lastService = project.services[project.services.length -1]
+    lastService.id = uuidv4()
+    const newCost = parseFloat(project.cost) + parseFloat(lastService.cost)
+    if (newCost > parseFloat(project.budget)){
+      setMsg("Orçamento ultrapassado, verifique o valor do serviço!")
+      setType("error")
+      project.services.pop()
+      return false
+    }
+
+    project.cost = newCost
+    fetch(`http://localhost:5000/projects/${project.id}`, {
+          method: "PATCH",
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(project)
+        }).then((resp) => resp.json())
+          .then((data) => {
+            console.log(data)
+          })
+          .catch((err)=> console.log(err))
   }
 
   function editPost(project){
@@ -105,7 +134,9 @@ function Project(){
             </button>
             <div className={styles.projectInfo}>
               {showServiceForm && (
-                <div>Form do serviço</div>
+                <ServiceForm handleSubmit={createService}
+                            textBtn="Adicionar Serviço"
+                            projectData={project}/>
               )}
             </div>
           </div>
