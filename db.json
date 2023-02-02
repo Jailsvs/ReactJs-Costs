@@ -7,13 +7,25 @@
         "id": "2",
         "name": "Desenvolvimento"
       },
-      "cost": 2000,
+      "cost": 1750,
       "services": [
         {
-          "name": "Teste",
-          "cost": "2000",
-          "description": "Teste",
-          "id": "b899deb8-f547-42b0-a374-9f1aeec8b415"
+          "name": "Teste 01",
+          "cost": "1000",
+          "description": "Teste 01",
+          "id": "cfd0ecdc-4add-471a-a9f5-6589373d237d"
+        },
+        {
+          "name": "Teste 02",
+          "cost": "250",
+          "description": "Teste 02",
+          "id": "6b248913-6d61-4bfd-9bb8-d5461d06a12f"
+        },
+        {
+          "name": "Teste 03",
+          "cost": "500",
+          "description": "03",
+          "id": "9b977eb5-8c73-45c8-8ca0-0d379a27e6cb"
         }
       ],
       "id": 1
