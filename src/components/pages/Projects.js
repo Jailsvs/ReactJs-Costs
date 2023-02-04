@@ -7,6 +7,7 @@ import Loading from '../layout/Loading'
 import styles from './Projects.module.css'
 import {useLocation } from 'react-router-dom'
 import { useEffect, useState } from 'react'
+import { ListProjects, RemoveProject } from '../../gateways/ProjectGateway'
 
 function Projects() {
   const [projects, setProjects] = useState([])
@@ -21,32 +22,18 @@ function Projects() {
 
   useEffect(() => {
     setTimeout(() => {
-      fetch('http://localhost:5000/projects', {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    }).then(resp => resp.json())
-    .then(data => {
-      setProjects(data)
-      setRemoveLoading(true)
-    })
-    .catch((err) => console.log(err))
+      ListProjects(function(data) {
+        setProjects(data)
+        setRemoveLoading(true)
+      })
     }, delayServer);
   }, [])
 
   function removeProject(id) {
-    fetch(`http://localhost:5000/projects/${id}`, {
-      method: 'DELETE',
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    }).then(resp => resp.json())
-    .then(data => {
+    RemoveProject(id, function(data){
       setProjects(projects.filter((project) => project.id !== id))
       setProjectMessage("Projeto removido com sucesso!")
     })
-    .catch((err) => console.log(err));
   }
 
 

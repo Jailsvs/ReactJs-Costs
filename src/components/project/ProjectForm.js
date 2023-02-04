@@ -1,4 +1,5 @@
 import {useEffect, useState} from 'react'
+import { ListCategories } from '../../gateways/CategoryGateway'
 import Input from '../form/Input'
 import Select from '../form/Select'
 import SubmitButton from '../form/SubmitButton'
@@ -9,16 +10,9 @@ function ProjectForm({handleSubmit, btnText, projectData}){
   const [project, setProject ] = useState(projectData || {})
 
   useEffect(() => {
-    fetch("http://localhost:5000/categories", {
-          method: "GET",
-          headers: {
-            'Content-Type': 'application/json'
-          }
-        }).then((resp) => resp.json())
-          .then((data) => {
-            setCategories(data)
-          })
-          .catch((err) => console.log(err))
+    ListCategories(function(data){
+      setCategories(data)
+    })
   }, [])
 
   const submit = (e) => {

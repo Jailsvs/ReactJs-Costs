@@ -31,15 +31,51 @@
       "id": 1
     },
     {
-      "name": "Teste 0222",
+      "name": "Teste 2023",
       "budget": "8000",
       "category": {
         "id": "3",
         "name": "Design"
       },
+      "cost": 1500,
+      "services": [
+        {
+          "name": "001",
+          "cost": "1500",
+          "description": "Teste 001",
+          "id": "ca1de5ce-4420-4528-af82-e962356bbf26"
+        }
+      ],
+      "id": 2
+    },
+    {
+      "name": "Projeto novo",
+      "budget": "5000",
+      "category": {
+        "id": "4",
+        "name": "Planejamento"
+      },
       "cost": 0,
       "services": [],
-      "id": 2
+      "id": 3
+    },
+    {
+      "name": "New project Fuscão",
+      "budget": "8500",
+      "category": {
+        "id": "1",
+        "name": "Infra"
+      },
+      "cost": 500,
+      "services": [
+        {
+          "name": "Teste",
+          "cost": "500",
+          "description": "Teste",
+          "id": "586a1386-7287-47d9-8029-2ea68d60be4f"
+        }
+      ],
+      "id": 4
     }
   ],
   "categories": [

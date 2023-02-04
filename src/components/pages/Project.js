@@ -10,6 +10,7 @@ import ProjectForm from '../project/ProjectForm'
 import Message from '../layout/Message'
 import ServiceForm from '../service/ServiceForm';
 import ServiceCard from '../service/ServiceCard';
+import { GetProject, UpdateProject } from '../../gateways/ProjectGateway';
 
 function Project(){
 
@@ -25,17 +26,10 @@ function Project(){
 
   useEffect(() => {
     setTimeout(() => {
-      fetch(`http://localhost:5000/projects/${id}`, {
-            method: 'GET',
-            headers: {
-              'Content-Type': 'application/json'
-            }
-          }).then(resp => resp.json())
-          .then(data => {
-            setProject(data)
-            setServices(data.services)
-          })
-          .catch((err) => console.log(err))
+      GetProject(id, function(data) {
+        setProject(data)
+        setServices(data.services)
+      })
     }, delayServer)
   }, [id])
 
@@ -58,22 +52,13 @@ function Project(){
       project.services.pop()
       return false
     }
-
     project.cost = newCost
-    fetch(`http://localhost:5000/projects/${project.id}`, {
-          method: "PATCH",
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(project)
-        }).then((resp) => resp.json())
-          .then((data) => {
-            setServices(data.services)
-            setShowServiceForm(!showServiceForm)
-            setMsg('Serviço adicionado!')
-            setType('success')
-          })
-          .catch((err)=> console.log(err))
+    UpdateProject(project, function (data) {
+      setServices(data.services)
+      setShowServiceForm(!showServiceForm)
+      setMsg('Serviço adicionado!')
+      setType('success')
+    })
   }
 
   function editPost(project){
@@ -84,20 +69,12 @@ function Project(){
       return false
     }
 
-    fetch(`http://localhost:5000/projects/${project.id}`, {
-          method: "PATCH",
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(project)
-        }).then((resp) => resp.json())
-          .then((data) => {
-            setProject(data)
-            setShowProjectForm(false)
-            setMsg("Projeto atualizado!")
-            setType("success")
-          })
-          .catch((err)=> console.log(err))
+    UpdateProject(project, function(data) {
+      setProject(data)
+      setShowProjectForm(false)
+      setMsg("Projeto atualizado!")
+      setType("success")
+    })
   }
 
   function removeService(id, cost){
@@ -106,19 +83,11 @@ function Project(){
     projectUpdated.services = servicesUpdated
     projectUpdated.cost = parseFloat(projectUpdated.cost) - parseFloat(cost)
     
-    fetch(`http://localhost:5000/projects/${projectUpdated.id}`, {
-          method: "PATCH",
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(projectUpdated)
-        }).then((resp) => resp.json())
-          .then((data) => {
-            setProject(projectUpdated)
-            setServices(servicesUpdated)
-            setMsg('Serviço removido com sucesso!')
-          })
-          .catch((err)=> console.log(err))   
+    UpdateProject(projectUpdated, function(data) {
+      setProject(projectUpdated)
+      setServices(servicesUpdated)
+      setMsg('Serviço removido com sucesso!')
+    })
   }
 
   return (
